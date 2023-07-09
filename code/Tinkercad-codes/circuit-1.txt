@@ -1,3 +1,5 @@
+// Circuit-1 tinkercad circuit link: "https://www.tinkercad.com/things/43c9WcNG9Ib-copy-of-temp-ddd/editel?sharecode=ROlleZIs9Ear5Sh-n2p_XYGrf3K1k7w6S1Q3yg2nSLA"
+
 String ssid = "Simulator Wifi"; // SSID to connect to
 String password = ""; // Our virtual wifi has no password
 String host = "api.thingspeak.com"; // Open Weather Map API
