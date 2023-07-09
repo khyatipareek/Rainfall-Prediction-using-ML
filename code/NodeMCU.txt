@@ -1,0 +1,40 @@
+#include <ESP8266WiFi.h> // NodeMCU Library
+#include <DHT.h> // DHT Sensor Library
+#include <ThingSpeak.h> // ThingSpeak Library
+
+#define dhtpin 4
+
+DHT dht(dhtpin, DHT11); // Declaring D3 as dht pin
+WiFiClient client; // WiFi client object for ThingSpeak
+long myChannelNumber = 1715895 ; // ThingSpeak channel ID
+const char myWriteAPIKey[] = "IZMCMM7I2YRAMX19"; // ThingSpeak write key
+
+void setup() {
+	Serial.begin(115200); // Initializing baud rate
+	WiFi.begin("OnePlus Nord", "12345678"); // Connect to WiFi using given id and pass
+	while (WiFi.status() != WL_CONNECTED) // WiFi getting connected
+	{
+		delay(500);
+		Serial.print("..");
+	}
+	Serial.println();
+	Serial.println("NodeMCU is connected!");
+	Serial.println(WiFi.localIP()); // Print IP connected
+	dht.begin(); // Connect to dht sensor
+	ThingSpeak.begin(client); // Connect to ThingSpeak
+}
+
+void loop() {
+	float h = dht.readHumidity(); // Reading and saving Humidity value
+	float t = dht.readTemperature(); // Reading and saving Temperature value
+	Serial.println("Temperature: "+(String)t); // Printing these values on serial monito
+	Serial.println("Humidity: " + (String) h);
+	Serial.println();
+// SENDING DATA TO THINGSPEAK
+// Send humidity value to ThingSpeak in channel 2
+	ThingSpeak.writeField(myChannelNumber, 2, h, myWriteAPIKey);
+	//delay(100);
+); // Send temperature value to ThingSpeak in channel 1
+	ThingSpeak.writeField(myChannelNumber, 1, t, myWriteAPIKey
+delay(1000);
+}
